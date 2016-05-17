@@ -1,0 +1,28 @@
+<html>
+   <title>
+   	Batch Texter
+   </title>
+
+   <style type="text/css">
+   		body{
+   			margin: 200px auto;
+   			width:50%;
+   			text-align: center;
+   		}
+   		p{
+   			text-align: left;
+   		}
+   </style>
+
+   <body>
+   
+      <form action = "http://localhost:5000/send" method = "POST" 
+         enctype = "multipart/form-data">
+         <p>Message: </p> <br>
+         <input type="textarea" name="message"><br>
+         <input type = "file" name = "file" /> <br>
+         <input type = "submit"/>
+      </form>
+      
+   </body>
+</html>

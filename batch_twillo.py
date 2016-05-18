@@ -1,5 +1,7 @@
 import os
 import sqlite3
+import re
+
 from twilio.rest import TwilioRestClient
 
 conn = sqlite3.connect('db.db')
@@ -16,6 +18,7 @@ Message = ', just a reminder to check out the scholarship program from Make Scho
 
 for row in cursor.execute('SELECT * FROM contacts'):
 	Name, Phone = row
+	Phone = '+1' + re.sub('[^0-9]','', Phone)
 	# You can find your 'from_' parameter in your twilio dash at the following link
 	# https://www.twilio.com/user/account/phone-numbers/incoming
 	message = client.messages.create(to=Phone, from_="+1xxxxxxxxxx", body= Name + Message)

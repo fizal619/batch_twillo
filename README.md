@@ -1,2 +1,25 @@
 # batch_twillo
-A simple flask webapp to batch sms using twillo, please check readme for notes on running it. 
+A simple python script to batch sms using ~~twillo~~ Twilio.
+------------------------------------------------------------
+
+### Setup
+
+```
+pip install twilio
+```
+
+-Make sure to check that the database you connect to has a table **contacts** with two fields **Contact** and **Number**.
+-Twilio requires the number to be in the 10 digit format, eg **+17188880000**.
+-Lastly make sure to set your three credentials in the script itself. 
+
+----------------------------------------------------------
+
+### Usage
+
+Simply
+
+```
+python batch_twillo.py
+```
+
+to send your message to everyone in the database. 

@@ -1,31 +1,21 @@
 import os
+import sqlite3
+from twilio.rest import TwilioRestClient
 
-from werkzeug import secure_filename
-from flask import Flask, request, redirect, url_for, render_template
+conn = sqlite3.connect('db.db')
+cursor = conn.cursor()
 
-app = Flask(__name__)
+# Replace the following with your LIVE keys from here
+# https://www.twilio.com/user/account/settings
+account = "Axxxxxxxxxxxxxxxxxxxx"
+token = "0xxxxxxxxxxxxxxxxxxxxxx"
+client = TwilioRestClient(account, token)
 
-@app.route('/')
-def index():
-	print('rendered index')
-	return render_template('index.html')
+# Edit your message here of course
+Message = ', just a reminder to check out the scholarship program from Make School I emailed you about. The deadline is nearing. -Saeed Jabbar'
 
-@app.route('/send', methods = ['POST'])
-def upload_file():
-	phone_numbers = []
-	if request.method == 'POST':
-		f = request.files['file']
-		print('file uploaded successfully')
-
-		for line in f:
-			phone_numbers.append(line)
-
-		for num in phone_numbers:
-			print(num)
-
-		print('phone numbers loaded')
-	
-	return render_template('index.html')
-
-if __name__ == '__main__':
-	app.run()
+for row in cursor.execute('SELECT * FROM contacts'):
+	Name, Phone = row
+	# You can find your 'from_' parameter in your twilio dash at the following link
+	# https://www.twilio.com/user/account/phone-numbers/incoming
+	message = client.messages.create(to=Phone, from_="+1xxxxxxxxxx", body= Name + Message)

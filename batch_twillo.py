@@ -4,7 +4,8 @@ import re
 
 from twilio.rest import TwilioRestClient
 
-conn = sqlite3.connect('db.db')
+# For whatever database you'll have. Just made sure you have the appropriate data.
+conn = sqlite3.connect('db.db') 
 cursor = conn.cursor()
 
 # Replace the following with your LIVE keys from here
@@ -14,9 +15,9 @@ token = "0xxxxxxxxxxxxxxxxxxxxxx"
 client = TwilioRestClient(account, token)
 
 # Edit your message here of course
-Message = ', just a reminder to check out the scholarship program from Make School I emailed you about. The deadline is nearing. -Saeed Jabbar'
+Message = ', just a reminder to check out xyz'
 
-for row in cursor.execute('SELECT * FROM contacts'):
+for row in cursor.execute('SELECT * FROM contacts'): #make sure to customize for your database table.
 	Name, Phone = row
 	Phone = '+1' + re.sub('[^0-9]','', Phone)
 	# You can find your 'from_' parameter in your twilio dash at the following link
